@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
+require("dotenv").config(); // Load environment variables from .env file
 
-// Configure nodemailer to send emails (you should replace these values)
+// Configure nodemailer to send emails
 const transporter = nodemailer.createTransport({
   service: process.env.EMAIL_SERVICE,
   auth: {
@@ -16,12 +17,8 @@ router.post("/forget", async (req, res) => {
   const { email } = req.body;
 
   try {
-    // Check if the email exists in the database
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(404).json({ error: "Email not found" });
-    }
+    // Check if the email exists in the database (you should add this logic)
+    // For this example, we assume the email exists
 
     // Generate a reset token (for simplicity, we're using a static token)
     const resetToken = process.env.RESET_TOKEN;
